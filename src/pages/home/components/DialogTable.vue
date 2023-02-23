@@ -2,7 +2,7 @@
     <el-dialog :title="dialogTitle" :visible.sync="dialogVisible">
         <template v-if="dialogTitle==`看护记录`">
             <h4>{{city}}看护：</h4>
-            <el-table :data="nurseData" border size="middle" height="500px">
+            <el-table :data="nurseData" border>
                 <el-table-column label="名字" prop="name"></el-table-column>
                 <el-table-column label="手机号码" prop="phone"></el-table-column>
                 <el-table-column label="职位" prop="position"></el-table-column>

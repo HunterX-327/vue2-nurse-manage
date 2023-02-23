@@ -97,8 +97,8 @@ export default {
         //     console.log(key, keyPath);
         // },
 
-        //借助mapActions调用生成对应方法，会调用dispatch去联系actions方法
-        ...mapActions({ addTag: "addTag" }),
+        //借助mapActions调用生成对应方法，会调用dispatch去联系actions方法        
+        ...mapActions("labelAbout", { addTag: "addTag" }),
 
         //拿到MainLabel组件path实时切换defaultActions
         getDefaultActive(value) {

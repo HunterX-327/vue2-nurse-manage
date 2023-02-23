@@ -11,7 +11,7 @@
             </el-header>
 
             <!-- tags-header -->
-            <el-header class="el-header-tags" style="height:40px">
+            <el-header class="el-header-tags" style="height:40px;padding: 0px;">
                 <MainLabelVue></MainLabelVue>
             </el-header>
 

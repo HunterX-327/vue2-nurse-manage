@@ -27,4 +27,5 @@ new Vue({
   beforeCreate() {
     Vue.prototype.$bus = this; //安装全局事件总线，$bus就是当前应用的vm
   },
+  devtools: true
 }).$mount('#app')

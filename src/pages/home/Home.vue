@@ -189,8 +189,8 @@
 
 <script>
 import * as echarts from "echarts";
-import TitleCardVue from "./TitleCard.vue";
-import DialogVue from "./DialogTable.vue";
+import TitleCardVue from "./components/TitleCard.vue";
+import DialogVue from "./components/DialogTable.vue";
 import "animate.css";
 
 export default {
@@ -307,7 +307,7 @@ export default {
 
             //调整窗口时，自动调整chart大小
             window.addEventListener("resize", () => {
-                console.log("调整了窗口");
+                // console.log("调整了窗口");
                 myChart.resize();
             });
         },
@@ -372,7 +372,7 @@ export default {
 
             //调整窗口时，自动调整chart大小
             window.addEventListener("resize", () => {
-                console.log("调整了窗口");
+                // console.log("调整了窗口");
                 myChart.resize();
             });
         },
