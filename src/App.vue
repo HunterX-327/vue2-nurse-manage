@@ -50,6 +50,7 @@ body,
 html {
     height: 100%;
     margin: 0px;
+    /* min-width: 950px; */
 }
 
 .master {

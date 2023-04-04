@@ -12,7 +12,7 @@ export default{
             return new Promise((resolve,reject)=>{
                 const isExcel = /\.(xlsx|xls)$/.test(value.name.toLowerCase());
                 if (!isExcel) {
-                    let fileInfo = { name: value.name, state: false };
+                    let fileInfo = { name: value.name, state: "invalid" };
                     context.commit("ADDFILERSULT",fileInfo)
                     reject("只能上传excel文件")
                 }else{

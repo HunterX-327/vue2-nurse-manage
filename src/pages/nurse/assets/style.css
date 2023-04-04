@@ -1,0 +1,41 @@
+/* 外层 */
+/* .el-card {
+    position: relative;
+} */
+
+:deep(.el-card__body) {
+    padding: 5px 0px;
+}
+
+/* container */
+.el-container,
+:deep(.el-card__body) {
+    width: 100%;
+    height: 100%;
+}
+
+:deep(.el-header) {
+    width: 100%;
+    height: 6% !important;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+}
+
+:deep(.el-form-item) {
+    margin: 0px 4px;
+}
+
+.el-main {
+    width: 100%;
+    height: 86% !important;
+    padding: 5px;
+}
+
+.el-footer {
+    width: 100%;
+    height: 8% !important;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}

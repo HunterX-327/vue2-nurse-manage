@@ -69,10 +69,13 @@
                 <el-table-column label="导入结果" prop="isUpload" align="center">
                     <template v-slot="scope">
                         <template v-if="scope.row.state == true">
-                            <el-tag type="success">文件上传成功</el-tag>
+                            <el-tag type="success">导入成功</el-tag>
                         </template>
                         <template v-else-if="scope.row.state == false">
-                            <el-tag type="danger">文件上传失败</el-tag>
+                            <el-tag type="danger">上传失败</el-tag>
+                        </template>
+                        <template v-else-if="scope.row.state == 'invalid'">
+                            <el-tag type="danger">文件格式错误</el-tag>
                         </template>
                     </template>
                 </el-table-column>
@@ -146,7 +149,7 @@ export default {
             console.log("successUpload钩子");
             let fileInfo = { name: file.name, state: true };
             this.fileResult.push(fileInfo);
-            // this.fileList.push(fileInfo);
+            this.fileList.push(fileInfo);
         },
         errorUpload(err, file, fileList) {
             console.log("errorUpload钩子");
