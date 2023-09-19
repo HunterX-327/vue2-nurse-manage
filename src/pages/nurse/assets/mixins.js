@@ -1,3 +1,7 @@
+import _ from "lodash"
+
+import debounce from "@/utils/debounce";
+
 //封装每页的基础数据和方法
 export const dataHandle = {
     /* 基础数据 */
@@ -73,6 +77,31 @@ export const dataHandle = {
         changeFormData(formData) {
             console.log("我收到来着header的数据", formData);
         },
+
+        debounce:function(fn,delay){
+            let timer;
+            return function(...args){
+                let context = this;
+                console.log("这是method中this的指向：",this)
+                
+                if(timer) clearTimeout(timer);
+                timer = setTimeout(()=>{
+                    fn.apply(context,args);
+                },delay)
+                console.log("这是debounce中的timer:",timer);
+            }
+        },
+
+        //来自lodash库
+        // debounceSearch:_.debounce(function(){
+        //     console.log(this)
+        //     this.handleSearchChange();
+        // },300)
+
+        //来自个人封装的debounce
+        // debounceSearch:debounce.debounce(function () {  
+        //     console.log("first")
+        // },300)
     },
 
     /* 监听 */
@@ -81,9 +110,31 @@ export const dataHandle = {
         "formData.search": {
             handler(val) {
                 // console.log("formData发生了改变", val.search);
-                this.handleSearchChange();
+                // this.searchWatch()
+
+                // this.debounceSearch();
+
             },
         },
+    },
+
+    /* created钩子 */
+    created(){
+        //创建防抖
+        // function debounce(fn,delay){
+        //     let timer;
+        //     return function(...args){
+        //         let context = this;
+        //         if(timer) clearTimeout(timer);
+        //         timer = setTimeout(()=>{
+        //             fn.apply(context,args);
+        //         },delay)
+        //     }
+        // }
+
+        // this.searchWatch = debounce(()=>{
+        //     this.handleSearchChange();
+        // },300)
     },
 
     /* mounted钩子 */

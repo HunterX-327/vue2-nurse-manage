@@ -13,41 +13,25 @@
                         <el-container>
                             <el-main>
                                 <el-row style="padding:10px">
-                                    <el-button
-                                        type="primary"
-                                        style="padding: 13px;font-size: 15px; margin-left: 10px;"
-                                    >下载基础数据表模板</el-button>
-                                    <el-button
-                                        type="success"
-                                        style="padding: 13px;font-size: 15px; margin-left: 30px;"
-                                    >上传到服务器</el-button>
+                                    <el-button type="primary"
+                                        style="padding: 13px;font-size: 15px; margin-left: 10px;">下载基础数据表模板</el-button>
+                                    <el-button type="success"
+                                        style="padding: 13px;font-size: 15px; margin-left: 30px;">上传到服务器</el-button>
                                 </el-row>
                                 <el-row style="padding-left:20px">
-                                    <el-upload
-                                        class="upload-demo"
-                                        drag
-                                        action="https://jsonplaceholder.typicode.com/posts/"
-                                        multiple
-                                        :file-list="fileList"
-                                        :before-upload="beforeUpload"
-                                        :on-success="successUpload"
-                                        :on-error="errorUpload"
-                                    >
+                                    <el-upload class="upload-demo" drag action="http://httpbin.org/post" multiple
+                                        :file-list="fileList" :before-upload="beforeUpload" :on-success="successUpload"
+                                        :on-error="errorUpload">
                                         <i class="el-icon-upload"></i>
                                         <div class="el-upload__text">
                                             将文件拖到此处，或
                                             <em>点击上传</em>
                                         </div>
-                                        <div
-                                            class="el-upload__tip"
-                                            slot="tip"
-                                        >只能上传Excel(.xlsx)文件，且不超过2MB</div>
+                                        <div class="el-upload__tip" slot="tip">只能上传Excel(.xlsx)文件，且不超过2MB</div>
                                     </el-upload>
                                 </el-row>
                                 <el-row>
-                                    <div
-                                        style="font-size:15px;font-weight: bold;padding-left: 10px; margin: 20px 0px;"
-                                    >
+                                    <div style="font-size:15px;font-weight: bold;padding-left: 10px; margin: 20px 0px;">
                                         只允许导入
                                         <span style="color:red;">基础数据表</span>,且为
                                         <span style="color:red;">Excel (.xlsx)</span>文件格式，单个文件大小不能超过
@@ -62,6 +46,7 @@
             </el-main>
         </el-container>
 
+        <!-- 弹窗 -->
         <el-dialog :title="dialogTitle" :visible.sync="dialogVisible">
             <el-table :data="fileResult" border size="medium">
                 <el-table-column type="index" label="序号" width="50" align="center"></el-table-column>
@@ -89,96 +74,96 @@
 </template>
 
 <script>
-import "animate.css";
-import { mapState, mapActions } from "vuex";
-export default {
-    name: "ImportData",
-    data() {
-        return {
-            dialogTitle: "文件读取结果",
-            dialogVisible: false,
-            // fileResult: [],
+    import "animate.css";
+    import { mapState, mapActions } from "vuex";
+    export default {
+        name: "ImportData",
+        data() {
+            return {
+                dialogTitle: "文件读取结果",
+                dialogVisible: false,
+                // fileResult: [],
 
-            // //文件数据
-            // fileList: [
-            //     {
-            //         name: "food.jpeg",
-            //         url: "",
-            //         isUpload: true,
-            //     },
-            //     {
-            //         name: "food2.jpeg",
-            //         url: "",
-            //         isUpload: false,
-            //     },
-            // ],
-        };
-    },
-    methods: {
-        //mapActions生成checkFile方法
-        ...mapActions("importAbout", { checkFile: "checkFile" }),
+                // //文件数据
+                // fileList: [
+                //     {
+                //         name: "food.jpeg",
+                //         url: "",
+                //         isUpload: true,
+                //     },
+                //     {
+                //         name: "food2.jpeg",
+                //         url: "",
+                //         isUpload: false,
+                //     },
+                // ],
+            };
+        },
+        methods: {
+            //mapActions生成checkFile方法
+            ...mapActions("importAbout", { checkFile: "checkFile" }),
 
-        /* 上传之前判断是否是xlsx活xls文件，如果不是直接不上传 */
-        async beforeUpload(file) {
-            this.dialogVisible = true;
-            console.log("beforeUpload钩子", file);
+            /* 上传之前判断是否是xlsx活xls文件，如果不是直接不上传 */
+            async beforeUpload(file) {
+                this.dialogVisible = true;
+                console.log("beforeUpload钩子", file);
 
-            return this.checkFile(file)
-                .then((result) => {
-                    console.log("then：", result);
-                    return true;
-                })
-                .catch((error) => {
-                    console.log("catch：", error);
-                    reject();
-                    return false;
-                });
+                return this.checkFile(file)
+                    .then((result) => {
+                        console.log("then：", result);
+                        return true;
+                    })
+                    .catch((error) => {
+                        console.log("catch：", error);
+                        reject();
+                        return false;
+                    });
 
-            // return new Promise(async (resolve, reject) => {
-            //     try {
-            //         await this.checkFile(file);
-            //         resolve(true);
-            //     } catch (error) {
-            //         console.log("beforeUpload收到来着action错误数据：", error);
-            //         reject(false);
-            //     }
-            // });
+                // return new Promise(async (resolve, reject) => {
+                //     try {
+                //         await this.checkFile(file);
+                //         resolve(true);
+                //     } catch (error) {
+                //         console.log("beforeUpload收到来着action错误数据：", error);
+                //         reject(false);
+                //     }
+                // });
+            },
+
+            successUpload(_, file, fileList) {
+                console.log("successUpload钩子");
+                let fileInfo = { name: file.name, state: true };
+                this.fileResult.push(fileInfo);
+                this.fileList.push(fileInfo);
+            },
+            errorUpload(err, file, fileList) {
+                console.log("errorUpload钩子");
+                let fileInfo = { name: file.name, state: false };
+                this.fileResult.push(fileInfo);
+            },
         },
 
-        successUpload(_, file, fileList) {
-            console.log("successUpload钩子");
-            let fileInfo = { name: file.name, state: true };
-            this.fileResult.push(fileInfo);
-            this.fileList.push(fileInfo);
+        computed: {
+            // vuex获取files上传结果数据 和 fileList数据
+            ...mapState("importAbout", {
+                fileResult: "fileResult",
+                fileList: "fileList",
+            }),
         },
-        errorUpload(err, file, fileList) {
-            console.log("errorUpload钩子");
-            let fileInfo = { name: file.name, state: false };
-            this.fileResult.push(fileInfo);
-        },
-    },
-
-    computed: {
-        // vuex获取files上传结果数据 和 fileList数据
-        ...mapState("importAbout", {
-            fileResult: "fileResult",
-            fileList: "fileList",
-        }),
-    },
-};
+    };
 </script>
 
 <style scoped>
-.el-main {
-    padding: 2px;
-}
+    .el-main {
+        padding: 2px;
+    }
 
-:deep(.el-card__body),
-:deep(.el-card__header) {
-    padding: 5px;
-}
+    :deep(.el-card__body),
+    :deep(.el-card__header) {
+        padding: 5px;
+    }
 
-:deep(.el-tag) {
-    padding: 0px 20px;
-}
+    :deep(.el-tag) {
+        padding: 0px 20px;
+    }
 </style>

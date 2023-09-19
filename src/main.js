@@ -10,10 +10,11 @@ import VueRouter from 'vue-router';
 //引入store
 import store from "./store";
 
-//引入路由
+//引入路由插件
 import router from './router'
 
 Vue.config.productionTip = false
+//应用elementui插件
 Vue.use(ElementUI)
 //应用路由插件
 Vue.use(VueRouter)
