@@ -124,10 +124,15 @@
     --animate-duration: 0.6s !important;
 } */
 
-    .fade-enter-active,
+
     .fade-leave-active {
-        transition: all 0.3s cubic-bezier(0.55, 0, 0.1, 1) !important;
+        transition: all 0.1s cubic-bezier(0.55, 0, 0.1, 1) !important;
     }
+
+    .fade-enter-active {
+        transition: all 0.2s cubic-bezier(0.55, 0, 0.1, 1) !important;
+    }
+
 
     .fade-enter-to,
     .fade-leave {

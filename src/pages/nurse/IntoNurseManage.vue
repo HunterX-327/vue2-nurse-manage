@@ -17,12 +17,12 @@
                     <el-table-column prop="age" label="年龄" width="60" align="center"></el-table-column>
                     <el-table-column prop="phone" label="手机号" align="center"></el-table-column>
                     <el-table-column prop="position" label="职位" align="center"></el-table-column>
-                    <el-table-column prop="local" label="派出地" align="center"></el-table-column>
+                    <el-table-column prop="local" label="派出地" align="center" width="100"></el-table-column>
                     <el-table-column prop="time" label="派出时间" align="center"></el-table-column>
-                    <el-table-column prop="nurseDays" label="已看护天数" align="center" width="80">
+                    <el-table-column prop="nurseDays" label="已看护天数" align="center" width="100">
                         <template slot-scope="scope">{{ scope.row.nurseDays + "天"}}</template>
                     </el-table-column>
-                    <el-table-column prop="stagger" label="轮休总天数" align="center" width="80">
+                    <el-table-column prop="stagger" label="轮休总天数" align="center" width="100">
                         <template slot-scope="scope">{{ scope.row.stagger + "天" }}</template>
                     </el-table-column>
                     <el-table-column label="操作" align="center" fixed="right" width="300">

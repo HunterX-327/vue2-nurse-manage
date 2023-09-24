@@ -32,7 +32,13 @@ export const dataHandle = {
         //输入时 搜索表格内容
         handleSearchChange() {
             console.log("我来自mixins中的handleSearchChange函数，用于筛选数据")
-            let value = this.formData.search;
+            let value;
+            if(this.formData.personChoose){
+                value = this.formData.personChoose;
+            }else{
+                value = this.formData.search;
+            }
+            // console.log("xxxxx: ",value.trim()=="");
             if (value.trim() == "") {
                 //如果为空，则直接获取全部数据并到第一页
                 this.changePage(0, this.pageSize);
@@ -59,7 +65,16 @@ export const dataHandle = {
         //改变每页的时候由footer调用
         changePage(start, end) {
             // console.log("我是intoNurse组件，我收到了Footer传来的数据", start);
-            if (this.formData.search == "") {
+
+            /* 如果有人员选择器则两者一起判断否则值判断search */
+            let isPersonChoose;
+            if(this.formData.personChoose){
+                isPersonChoose = this.formData.search.trim() == "" && this.formData.personChoose.trim() == "";
+            }else{
+                isPersonChoose = this.formData.search.trim() == "";
+            }
+            
+            if (isPersonChoose) {
                 this.totalSize = this.total.length;
                 this.tableData = this.total.slice(start, end); //从总数据中筛选
             } else {
@@ -78,29 +93,29 @@ export const dataHandle = {
             console.log("我收到来着header的数据", formData);
         },
 
-        debounce:function(fn,delay){
-            let timer;
-            return function(...args){
-                let context = this;
-                console.log("这是method中this的指向：",this)
+        // debounce:function(fn,delay){
+        //     let timer;
+        //     return function(...args){
+        //         let context = this;
+        //         console.log("这是method中this的指向：",this)
                 
-                if(timer) clearTimeout(timer);
-                timer = setTimeout(()=>{
-                    fn.apply(context,args);
-                },delay)
-                console.log("这是debounce中的timer:",timer);
-            }
-        },
+        //         if(timer) clearTimeout(timer);
+        //         timer = setTimeout(()=>{
+        //             fn.apply(context,args);
+        //         },delay)
+        //         console.log("这是debounce中的timer:",timer);
+        //     }
+        // },
 
         //来自lodash库
-        // debounceSearch:_.debounce(function(){
-        //     console.log(this)
-        //     this.handleSearchChange();
-        // },300)
+        debounceSearch:_.debounce(function(){
+            // console.log(this)
+            this.handleSearchChange();
+        },300)
 
         //来自个人封装的debounce
         // debounceSearch:debounce.debounce(function () {  
-        //     console.log("first")
+        //     this.handleSearchChange();
         // },300)
     },
 
@@ -109,18 +124,33 @@ export const dataHandle = {
         /* 监听search窗口 并触发search处理事件  */
         "formData.search": {
             handler(val) {
-                // console.log("formData发生了改变", val.search);
-                // this.searchWatch()
-
-                // this.debounceSearch();
-
+                console.log("formData发生了改变", val.search);
+                //如果新值不是空的，就删除personChoose，开始person的搜索
+                if(val != "" || val.trim() != ""){
+                    this.formData.personChoose = ""
+                }
+                this.debounceSearch();
             },
         },
+
+        //看护记录中监听姓名
+        "formData.personChoose": function (newValue) {
+            console.log("personChoose修改了", newValue);
+            //如果新值不是空的，就删除search，开始person的搜索
+            if(newValue != "" || newValue.trim() != ""){
+                this.formData.search = ""
+            }
+            if(newValue == "cancel"){
+                this.formData.personChoose = "";
+            }else{
+                this.debounceSearch();
+            }
+        }
     },
 
     /* created钩子 */
     created(){
-        //创建防抖
+        //创建防抖(可行)
         // function debounce(fn,delay){
         //     let timer;
         //     return function(...args){

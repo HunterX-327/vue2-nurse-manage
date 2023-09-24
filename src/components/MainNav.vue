@@ -34,8 +34,7 @@
                     </template>
                     <el-menu-item index="/personAll">全部</el-menu-item>
                     <el-menu-item index="/onJobPerson">在岗人员</el-menu-item>
-                    <el-menu-item index="/caregivers">看护人员</el-menu-item>
-                    <el-menu-item index="/employee">离职人员</el-menu-item>
+                    <el-menu-item index="/Dismissed">离职人员</el-menu-item>
                 </el-submenu>
                 <el-menu-item index="/locale">
                     <i class="el-icon-location-information"></i>

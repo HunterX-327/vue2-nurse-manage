@@ -2,7 +2,7 @@
 <!-- 需要传入props[pageName,formData] -->
 <template>
     <el-row style="display: flex;justify-content: space-around;width: 100%;">
-        <el-col :span="18">
+        <el-col :span="19">
             <el-form :inline="true" :model="formData" size="mini">
                 <!-- <slot name="HeaderLeft">这里是默认left插槽</slot> -->
                 <!-- 看护记录头部左边 -->
@@ -16,7 +16,9 @@
                     </el-form-item>
 
                     <el-form-item>
-                        <el-select v-model="formData" size="mini" style="max-width: 150px;" placeholder="请选择姓名">
+                        <el-select v-model="formData.personChoose" size="mini" style="max-width: 150px;"
+                            placeholder="请选择姓名">
+                            <el-option label="取消选择" value="cancel" style="color: red;"></el-option>
                             <el-option v-for="(item, index) in formData.person" :key="index" :label="item.label"
                                 :value="item.value"></el-option>
                         </el-select>
@@ -26,7 +28,6 @@
                         <el-date-picker v-model="formData.nurseDate" type="daterange" range-separator="至"
                             start-placeholder="开始时间" end-placeholder="结束时间" format="yyyy-MM-dd"
                             value-format="yyyy-MM-dd" unlink-panels size="mini" style="max-width: 250px;">
-
                         </el-date-picker>
                     </el-form-item>
 
@@ -39,8 +40,9 @@
                         <el-button icon="el-icon-search" type="primary">搜索</el-button>
                     </el-form-item>
                 </template>
-                <!-- 其他的 -->
 
+
+                <!-- 其他的 -->
                 <template v-else>
                     <el-form-item>
                         <el-select v-model="formData.department" size="mini">
@@ -55,11 +57,14 @@
                         <el-button icon="el-icon-search" type="primary">搜索</el-button>
                     </el-form-item>
                 </template>
+
             </el-form>
         </el-col>
-        <el-col :span="6" style="display: flex;justify-content: end;">
+
+        <!-- header右边 -->
+        <el-col :span="5" style="display: flex;justify-content: end;">
             <template v-if="pageName == 'IntoNurse'">
-                <!-- 如果为代转入看护IntoNurse 则一下按钮 -->
+                <!-- 如果为代转入看护IntoNurse 则以下按钮 -->
                 <el-button icon="el-icon-user" size="mini"
                     style="background-color: orange; color: white;">批量接收</el-button>
                 <el-button icon="el-icon-user" size="mini" style="background-color: red; color: white;">批量退回</el-button>
@@ -92,7 +97,8 @@
         name: "Header",
         props: ["pageName", "formData"],
         data() {
-            return {};
+            return {
+            };
         },
     };
 </script>

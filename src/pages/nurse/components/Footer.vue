@@ -9,7 +9,7 @@
 <script>
     export default {
         name: "Footer",
-        props: ["totalSize", "tableData"],
+        props: ["totalSize"],
         data() {
             return {
                 //每页列数
@@ -33,9 +33,9 @@
 
             // 改变每页显示size时
             handleSizeChange(val) {
-                this.pageSize = val;
-                this.handleCurrentChange(this.currentPage);
-                this.$emit("changeSize", val);
+                this.pageSize = val; //先将当前页数设置
+                this.handleCurrentChange(this.currentPage); //调用切换页面函数，从但前页开始但是以新的pagesize显示
+                this.$emit("changeSize", val); //重置父组件pageSize用于搜索
             },
         },
     };

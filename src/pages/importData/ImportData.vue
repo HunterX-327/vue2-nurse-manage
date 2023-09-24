@@ -108,17 +108,28 @@
                 this.dialogVisible = true;
                 console.log("beforeUpload钩子", file);
 
-                return this.checkFile(file)
-                    .then((result) => {
-                        console.log("then：", result);
-                        return true;
-                    })
-                    .catch((error) => {
-                        console.log("catch：", error);
-                        reject();
-                        return false;
-                    });
+                try {
+                    const result = await this.checkFile(file);
+                    console.log("action验证文件成功:", result);
+                    return true;
+                } catch (error) {
+                    console.log("action验证文件失败：", error);
+                    reject();
+                    return false;
+                }
 
+                // return this.checkFile(file)
+                //     .then((result) => {
+                //         console.log("then：", result);
+                //         return true;
+                //     })
+                //     .catch((error) => {
+                //         console.log("catch：", error);
+                //         reject();
+                //         return false;
+                //     });
+
+                /* 使用promise */
                 // return new Promise(async (resolve, reject) => {
                 //     try {
                 //         await this.checkFile(file);

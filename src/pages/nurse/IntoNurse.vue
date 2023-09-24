@@ -171,17 +171,24 @@
                         time: "2022-08-01",
                     },
                 ],
+
+
             };
         },
         //封装在mixins的搜索函数
         mixins: [dataHandle],
 
         methods: {
-            // // 每页size改变时触发
+
+            test() {
+                console.log(this.formData);
+            }
+            // 每页size改变时触发
             // handleSizeChange(val) {
             //     this.pageSize = val;
             //     this.handleCurrentChange(this.currentPage);
             // },
+
             // //当前页改变时候触发
             // handleCurrentChange(val) {
             //     this.currentPage = val; //绑定当前页

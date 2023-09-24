@@ -21,8 +21,7 @@ import  IntoNurse from '../pages/nurse/IntoNurse.vue'
 import  IntoNurseManage from '../pages/nurse/IntoNurseManage.vue'
 import  NurseRecord from '../pages/nurse/NurseRecord.vue'
 
-import  CareGivers from '../pages/personInfo/CareGivers'
-import  Employee from '../pages/personInfo/Employee'
+import  Dismissed from '../pages/personInfo/Dismissed'
 import  OnJobPerson from '../pages/personInfo/OnJobPerson'
 import  PersonAll from '../pages/personInfo/PersonAll'
 
@@ -91,14 +90,9 @@ export default new VueRouter({
             component:OnJobPerson,
         },
         {
-            path:'/caregivers',  //看护人员
-            meta:"看护人员",
-            component:CareGivers,
-        },
-        {
-            path:'/employee',  // 离岗人员
+            path:'/Dismissed',  // 离岗人员
             meta:"离岗人员",
-            component:Employee,
+            component:Dismissed,
         },
 
         //地区设置
