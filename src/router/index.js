@@ -28,6 +28,7 @@ import  PersonAll from '../pages/personInfo/PersonAll'
 import  Locale from '../pages/locale/Locale.vue'
 
 import  UserManage from '../pages/setting/UserManage.vue'
+import  UserSetting from '../pages/setting/UserSetting.vue'
 
 //使用并暴露路由
 export default new VueRouter({
@@ -113,6 +114,12 @@ export default new VueRouter({
             path:'/userManage', //用户设置
             meta:"用户管理",
             component:UserManage,
+        }, 
+        {
+            path:'/userSetting', //用户设置
+            meta:"用户设置",
+            component:UserSetting,
         }
+
     ]
 })

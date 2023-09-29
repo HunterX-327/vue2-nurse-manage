@@ -2,23 +2,23 @@
     <el-container class="master">
         <el-aside :style="asideStyle">
             <!-- main-navigation -->
-            <MainNavVue></MainNavVue>
+            <MainNavVue :isLess="isLess"></MainNavVue>
         </el-aside>
         <el-container>
             <!-- main-header -->
-            <el-header class="el-header-main" style="padding-left: 10px;">
-                <MainHeaderVue></MainHeaderVue>
+            <el-header class="el-header-main" style="padding-left: 10px; min-width: 500px;">
+                <MainHeaderVue :isLess="isLess"></MainHeaderVue>
             </el-header>
 
             <!-- tags-header -->
-            <el-header class="el-header-tags" style="height:40px;padding: 0px;">
+            <el-header class="el-header-tags" style="height:40px;padding: 0px; min-width: 500px;">
                 <MainLabelVue></MainLabelVue>
             </el-header>
 
             <!-- main -->
-            <el-main style="padding:5px;overflow: hidden;">
+            <el-main style="padding:5px;overflow: auto;" ref="mainContent">
                 <transition mode="out-in" name="fade" appear>
-                    <router-view class="view"></router-view>
+                    <router-view class="view" style="min-width: 1100px;"></router-view>
                 </transition>
             </el-main>
         </el-container>
@@ -30,6 +30,7 @@
     import MainLabelVue from "./components/MainLabel.vue";
     import MainNavVue from "./components/MainNav.vue";
     import "animate.css";
+    import _ from 'lodash'
 
     export default {
         name: "App",
@@ -38,6 +39,8 @@
             return {
                 //是否折叠
                 isCollapse: false,
+                //宽度是否小于1000px
+                isLess: false,
 
                 //aside的style 由isCollapse控制
                 asideStyle: {
@@ -47,11 +50,18 @@
         },
         methods: {
             isCollapseAction(action) {
-                console.log("我是app收到了", action);
+                console.log("收到isCollapse", action);
                 this.isCollapse = action;
+            },
+
+            isLessAction(action) {
+                console.log("收到less", action);
+                this.isLess = action;
             }
         },
         mounted() {
+            console.log("当前路由", this.$route.path);
+
             //如果第一次进入该程序，则跳转到home，否则刷新也跳转到当前
             if (this.$route.path == "/") {
                 this.$router.replace({
@@ -61,6 +71,22 @@
 
             //绑定全局事件总线，用于接收Mainheader传来的折叠操作
             this.$bus.$on("isCollapseAction", this.isCollapseAction);
+
+            //绑定全局事件，姐搜mainHeader和mainNav修改less
+            this.$bus.$on("isLessAction", this.isLessAction)
+
+
+            //窗口小于1000时收回aside,再触发MainNav的:collapse
+            window.addEventListener("resize", _.debounce(() => {
+                if (window.innerWidth < 1000) {
+                    this.isLess = true;
+                    this.asideStyle.width = '60px'
+                } else {
+                    this.isLess = false;
+                    this.asideStyle.width = '200px'
+                }
+            }, 100))
+
         },
         watch: {
             isCollapse(e) {
@@ -70,7 +96,9 @@
                     this.asideStyle.width = "200px"
                 }
             }
-        }
+        },
+        beforeDestroy() {
+        },
     };
 </script>
 
@@ -80,6 +108,7 @@
         height: 100%;
         margin: 0px;
         /* min-width: 950px; */
+        overflow: hidden;
     }
 
     .master {

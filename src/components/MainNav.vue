@@ -36,19 +36,20 @@
                     <el-menu-item index="/onJobPerson">在岗人员</el-menu-item>
                     <el-menu-item index="/Dismissed">离职人员</el-menu-item>
                 </el-submenu>
-                <el-menu-item index="/locale">
-                    <i class="el-icon-location-information"></i>
-                    <span>地区设置</span>
-                </el-menu-item>
                 <el-submenu index="5">
                     <template slot="title">
                         <i class="el-icon-s-operation"></i>
                         <span>系统设置</span>
                     </template>
                     <el-menu-item index="/userManage">用户管理</el-menu-item>
-                    <el-menu-item index="5-2" disabled>修改密码</el-menu-item>
+                    <el-menu-item index="/userSetting">修改密码</el-menu-item>
                     <el-menu-item index="5-3" disabled>数据备份</el-menu-item>
                 </el-submenu>
+                <el-menu-item index="/locale" disabled>
+                    <i class="el-icon-location-information"></i>
+                    <span>地区设置(开发中...)</span>
+                </el-menu-item>
+
             </el-menu>
         </el-col>
     </el-row>
@@ -59,6 +60,7 @@
     import avatar from "@/assets/avatar.jpg"
     export default {
         name: "MainNav",
+        props: ['isLess'],
         data() {
             return {
                 keyIndex: "", //当前打开的submenu
@@ -133,6 +135,17 @@
                 },
                 // immediate: true,
             },
+
+            //监听isLess看是否需要收缩nav
+            isLess(newValue) {
+                if (newValue) {
+                    this.isCollapse = true; //改变nav的isCollapse收缩
+                    this.$bus.$emit("isCollapseAction", this.isCollapse); //改变app中的isCollapse
+                } else {
+                    this.isCollapse = false;
+                    this.$bus.$emit("isCollapseAction", this.isCollapse);
+                }
+            }
         },
 
         beforeDestroy() {

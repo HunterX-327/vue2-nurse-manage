@@ -41,10 +41,10 @@
                 <!-- 定义插槽 -->
                 <el-table border style="width: 100%;" :data="tableData" size="mini" height="100%">
                     <el-table-column type="selection" width="50" align="center"></el-table-column>
-                    <el-table-column label="姓名" prop="name" align="center"></el-table-column>
-                    <el-table-column label="性别" prop="sex" align="center"></el-table-column>
+                    <el-table-column label="姓名" prop="name" align="center" width="60"></el-table-column>
+                    <el-table-column label="性别" prop="sex" align="center" width="60"></el-table-column>
                     <el-table-column label="所属部门" prop="department" align="center"></el-table-column>
-                    <el-table-column label="出生年月" prop="birthday" align="center"></el-table-column>
+                    <el-table-column label="出生年月" prop="birthday" align="center" width="120"></el-table-column>
                     <el-table-column label="籍贯" prop="nativePlace" align="center"></el-table-column>
                     <el-table-column label="是否党员" prop="isPartyMember" align="center" width="80"></el-table-column>
                     <!-- 状态 各个状态不同的显示颜色 -->
