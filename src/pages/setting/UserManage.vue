@@ -9,7 +9,7 @@
             <el-header>
                 <el-row type="flex" justify="space-between">
                     <el-col :span="5">
-                        <el-button type="primary" size="medium">新建账号</el-button>
+                        <el-button type="primary" size="medium" @click="createHandle">新建账号</el-button>
                     </el-col>
                     <el-col :span="5">
                         <el-form>
@@ -58,16 +58,22 @@
                 <FooterVue :totalSize="totalSize" @changePage="changePage" @changeSize="changeSize"></FooterVue>
             </el-footer>
         </el-container>
+
+        <!-- 新建用户弹窗 -->
+        <AddAccountVue ref="createAccount"></AddAccountVue>
     </el-card>
 </template>
 
 <script>
     import FooterVue from "./components/Footer.vue"
+    import AddAccountVue from "./components/AddAccount.vue"
     export default {
         name: "UserManage",
-        components: { FooterVue },
+        components: { FooterVue, AddAccountVue },
         data() {
             return {
+                // Visible: false,//props方案
+
                 search: "", //搜索框
                 total: [
                     {
@@ -90,6 +96,13 @@
             }
         },
         methods: {
+            //新增账号
+            createHandle() {
+                /* 弹窗显示 */
+                // this.Visible = !this.Visible; //props方案
+                this.$refs.createAccount.dialogVisible = true;
+            },
+
             // 删除账号
             deleteAccountHandle(row) {
 

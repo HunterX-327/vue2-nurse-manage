@@ -155,6 +155,7 @@
             </el-main>
         </el-container>
 
+        <!-- 柱形图点击弹窗 -->
         <DialogVue></DialogVue>
     </el-card>
 </template>
